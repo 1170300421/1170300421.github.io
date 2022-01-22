@@ -152,6 +152,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-iOS常用数据转化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/22/iOS%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96/">iOS常用数据转化</a>
+    </h1>
+  
+
+        
+        <a href="/2022/01/22/iOS%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2022-01-22T04:23:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-NSData数据转NSString数据"><a href="#1-NSData数据转NSString数据" class="headerlink" title="1.NSData数据转NSString数据"></a>1.NSData数据转NSString数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-NSString数据转NSData数据"><a href="#2-NSString数据转NSData数据" class="headerlink" title="2.NSString数据转NSData数据"></a>2.NSString数据转NSData数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSData *data = [String dataUsingEncoding:NSUTF8StringEncoding];</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-NSData数据转Base64数据"><a href="#3-NSData数据转Base64数据" class="headerlink" title="3.NSData数据转Base64数据"></a>3.NSData数据转Base64数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *base64 = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-NSData数据转十六进制字符串"><a href="#4-NSData数据转十六进制字符串" class="headerlink" title="4.NSData数据转十六进制字符串"></a>4.NSData数据转十六进制字符串</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (NSData *)HexStrToData:(NSString *)str</span><br><span class="line">&#123;</span><br><span class="line">    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:20];</span><br><span class="line">    NSRange range;</span><br><span class="line">    if ([str length] % 2 == 0) &#123;</span><br><span class="line">        range = NSMakeRange(0, 2);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        range = NSMakeRange(0, 1);</span><br><span class="line">    &#125;</span><br><span class="line">    for (NSInteger i = range.location; i &lt; [str length]; i += 2) &#123;</span><br><span class="line">        unsigned int anInt;</span><br><span class="line">        NSString *hexCharStr = [str substringWithRange:range];</span><br><span class="line">        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];</span><br><span class="line">        </span><br><span class="line">        [scanner scanHexInt:&amp;anInt];</span><br><span class="line">        NSData *entity = [[NSData alloc] initWithBytes:&amp;anInt length:1];</span><br><span class="line">        [hexData appendData:entity];</span><br><span class="line">        </span><br><span class="line">        range.location += range.length;</span><br><span class="line">        range.length = 2;</span><br><span class="line">    &#125;</span><br><span class="line">    return hexData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-十六进制字符串转NSData数据"><a href="#5-十六进制字符串转NSData数据" class="headerlink" title="5.十六进制字符串转NSData数据"></a>5.十六进制字符串转NSData数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (NSString *)DataToHexStr:(NSData *)data</span><br><span class="line">&#123;</span><br><span class="line">    if (![data isKindOfClass:[NSData class]] || data.length == 0) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSMutableString *hexStr = [NSMutableString string];</span><br><span class="line">    const char *buf = data.bytes;</span><br><span class="line">    for (int i = 0; i &lt; data.length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        [hexStr appendFormat:@&quot;%02X&quot;, buf[i] &amp; 0xff];</span><br><span class="line">    &#125;</span><br><span class="line">    return hexStr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-普通NSData、NSString与base64data互转"><a href="#6-普通NSData、NSString与base64data互转" class="headerlink" title="6.普通NSData、NSString与base64data互转"></a>6.普通NSData、NSString与base64data互转</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NSData *base64data = [data base64EncodedDataWithOptions:NSDataBase64EncodingEndLineWithLineFeed];//普通data-&gt; base64data</span><br><span class="line"></span><br><span class="line">NSData *b64CertData= [[NSData alloc] initWithBase64EncodedString:pemStr options:NSDataBase64DecodingIgnoreUnknownCharacters];//NSString-&gt;base64Data</span><br><span class="line"></span><br><span class="line">NSData *data = [[NSData alloc] initWithBase64EncodedData:base64data options:NSDataBase64DecodingIgnoreUnknownCharacters]; //base64data-&gt;普通data</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-NSString与UInt8数据互相转化及UInt8数据转NSData"><a href="#7-NSString与UInt8数据互相转化及UInt8数据转NSData" class="headerlink" title="7.NSString与UInt8数据互相转化及UInt8数据转NSData"></a>7.NSString与UInt8数据互相转化及UInt8数据转NSData</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//NSString 转 UInt8</span><br><span class="line">NSString *str = @&quot;测试转换&quot;;</span><br><span class="line">UInt8 buff_str[1024];</span><br><span class="line">memcpy(buff_str,[str UTF8String], [str length]+1);</span><br><span class="line">NSLog(@&quot;char = %s&quot;,buff_str);</span><br><span class="line"></span><br><span class="line">//UInt8 转 NSString</span><br><span class="line">NSString *str_From_buff = [NSString stringWithCString:(char*)buff_str encoding:NSUTF8StringEncoding];</span><br><span class="line">NSLog(@&quot;string = %@&quot;,str_From_buff);</span><br><span class="line"></span><br><span class="line">//UInt8 转 NSData</span><br><span class="line">tmp_str=[NSData dataWithBytes:shares[0] length:sizeof(shares[0])];</span><br><span class="line"></span><br><span class="line">注：因为dataWithBytesNoCopy:想保留你给它的指针。事实上，你必须给它一个你创建的指针malloc，因为它会在完成数据后释放它。因此使用此可能出现pointer being freed was not allocated的内存错误 所以使用dataWithBytes来进行数据转化</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-SeckeyRef数据与NSData数据转化"><a href="#8-SeckeyRef数据与NSData数据转化" class="headerlink" title="8.SeckeyRef数据与NSData数据转化"></a>8.SeckeyRef数据与NSData数据转化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SeckeyRef seckeyrefData = (__bridge CFDataRef)data //SeckeyRef -&gt; NSData</span><br><span class="line"></span><br><span class="line">NSData *data = (__bridge NSData*)seckeyrefData //NSData -&gt; SeckeyRef</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/test.png"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据转化</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/22/iOS%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -391,6 +486,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据转化</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
