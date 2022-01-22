@@ -15,14 +15,12 @@
 <meta property="og:site_name" content="My Blogs">
 <meta property="og:description" content="前提本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。 正文1.NSData数据转NSString数据1NSString *String &#x3D; [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];  2.NSString数据转NSData数据1NSData">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/01/22/images/test.png">
 <meta property="article:published_time" content="2022-01-22T04:23:50.000Z">
-<meta property="article:modified_time" content="2022-01-22T04:45:40.482Z">
+<meta property="article:modified_time" content="2022-01-22T12:50:12.445Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="数据转化">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/01/22/images/test.png">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
   
@@ -194,8 +192,6 @@
 <h3 id="7-NSString与UInt8数据互相转化及UInt8数据转NSData"><a href="#7-NSString与UInt8数据互相转化及UInt8数据转NSData" class="headerlink" title="7.NSString与UInt8数据互相转化及UInt8数据转NSData"></a>7.NSString与UInt8数据互相转化及UInt8数据转NSData</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//NSString 转 UInt8</span><br><span class="line">NSString *str = @&quot;测试转换&quot;;</span><br><span class="line">UInt8 buff_str[1024];</span><br><span class="line">memcpy(buff_str,[str UTF8String], [str length]+1);</span><br><span class="line">NSLog(@&quot;char = %s&quot;,buff_str);</span><br><span class="line"></span><br><span class="line">//UInt8 转 NSString</span><br><span class="line">NSString *str_From_buff = [NSString stringWithCString:(char*)buff_str encoding:NSUTF8StringEncoding];</span><br><span class="line">NSLog(@&quot;string = %@&quot;,str_From_buff);</span><br><span class="line"></span><br><span class="line">//UInt8 转 NSData</span><br><span class="line">tmp_str=[NSData dataWithBytes:shares[0] length:sizeof(shares[0])];</span><br><span class="line"></span><br><span class="line">注：因为dataWithBytesNoCopy:想保留你给它的指针。事实上，你必须给它一个你创建的指针malloc，因为它会在完成数据后释放它。因此使用此可能出现pointer being freed was not allocated的内存错误 所以使用dataWithBytes来进行数据转化</span><br></pre></td></tr></table></figure>
 
 <h3 id="8-SeckeyRef数据与NSData数据转化"><a href="#8-SeckeyRef数据与NSData数据转化" class="headerlink" title="8.SeckeyRef数据与NSData数据转化"></a>8.SeckeyRef数据与NSData数据转化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SeckeyRef seckeyrefData = (__bridge CFDataRef)data //SeckeyRef -&gt; NSData</span><br><span class="line"></span><br><span class="line">NSData *data = (__bridge NSData*)seckeyrefData //NSData -&gt; SeckeyRef</span><br></pre></td></tr></table></figure>
-
-<p><img src="../images/test.png"></p>
 
       
 
