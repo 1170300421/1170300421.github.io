@@ -173,7 +173,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例</p>
-        
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="一-Git配置SSH公钥"><a href="#一-Git配置SSH公钥" class="headerlink" title="一.Git配置SSH公钥"></a>一.Git配置SSH公钥</h3><p>使用https连接github可能因为网络原因出现连接不上，并且可能需要经常输入密码，这里可尝试使用SSH来连接Github。</p>
+<p>1.步骤一：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>2.步骤二</p>
+<img src="../images/gitSSH.png" style="zoom:50%;" />
+
+<p>如上图操作：输入命令后可更改文件名及路径，一般默认即可，记住生成的文件路径。之后会让设置密码，不设置可直接回车，之后打开后缀为pub的文件，复制里面的全部内容并在github的设置中进行配置即可</p>
+<p><strong>注意：</strong>一定要复制文件里的全部内容，不然无法被Github识别到</p>
+
       
 
       
