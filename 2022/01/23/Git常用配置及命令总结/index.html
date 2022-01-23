@@ -6,22 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Git常用命令使用手册 | My Blogs</title>
+  <title>Git常用配置及命令总结 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前提本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例 正文一.Git配置SSH公钥使用https连接github可能因为网络原因出现连接不上，并且可能需要经常输入密码，这里可尝试使用SSH来连接Github。 1.步骤一： 1ssh-keygen -t rsa -b 4096 -C &quot;your@example.com&quot;  2.步骤二">
+  <meta name="description" content="前提本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git常用命令使用手册">
-<meta property="og:url" content="http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/index.html">
+<meta property="og:title" content="Git常用配置及命令总结">
+<meta property="og:url" content="http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="My Blogs">
-<meta property="og:description" content="前提本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例 正文一.Git配置SSH公钥使用https连接github可能因为网络原因出现连接不上，并且可能需要经常输入密码，这里可尝试使用SSH来连接Github。 1.步骤一： 1ssh-keygen -t rsa -b 4096 -C &quot;your@example.com&quot;  2.步骤二">
+<meta property="og:description" content="前提本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/01/23/images/gitSSH.png">
-<meta property="article:published_time" content="2022-01-22T16:03:56.000Z">
-<meta property="article:modified_time" content="2022-01-23T03:07:52.583Z">
+<meta property="og:image" content="http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/gitSSH.png">
+<meta property="article:published_time" content="2022-01-23T08:47:09.000Z">
+<meta property="article:modified_time" content="2022-01-23T09:01:24.152Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Git">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/01/23/images/gitSSH.png">
+<meta name="twitter:image" content="http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/gitSSH.png">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
   
@@ -157,20 +157,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Git常用命令使用手册" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Git常用配置及命令总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Git常用命令使用手册
+      Git常用配置及命令总结
     </h1>
   
 
         
-        <a href="/2022/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="archive-article-date">
-  	<time datetime="2022-01-22T16:03:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-23</time>
+        <a href="/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2022-01-23T08:47:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-23</time>
 </a>
         
       </header>
@@ -178,13 +178,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例</p>
+<span id="more"></span>
+
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="一-Git配置SSH公钥"><a href="#一-Git配置SSH公钥" class="headerlink" title="一.Git配置SSH公钥"></a>一.Git配置SSH公钥</h3><p>使用https连接github可能因为网络原因出现连接不上，并且可能需要经常输入密码，这里可尝试使用SSH来连接Github。</p>
 <p>1.步骤一：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your@example.com&quot;</span><br></pre></td></tr></table></figure>
 
 <p>2.步骤二</p>
-<img src="../images/gitSSH.png" style="zoom:50%;" />
-
+<p><img src="/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/gitSSH.png"></p>
 <p>如上图操作：输入命令后可更改文件名及路径，一般默认即可，记住生成的文件路径。之后会让设置密码，不设置可直接回车，之后打开后缀为pub的文件，复制里面的全部内容并在github的设置中进行配置即可</p>
 <p><strong>注意：</strong>一定要复制文件里的全部内容，不然无法被Github识别到</p>
 
@@ -221,7 +222,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
@@ -277,7 +278,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -419,6 +420,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
@@ -428,10 +433,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
             
             <div class="clearfix"></div>
