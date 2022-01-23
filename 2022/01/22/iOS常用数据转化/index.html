@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>iOS常用数据转化 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前提本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。 正文1.NSData数据转NSString数据1NSString *String &#x3D; [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];  2.NSString数据转NSData数据1NSData">
+  <meta name="description" content="前提本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS常用数据转化">
 <meta property="og:url" content="http://example.com/2022/01/22/iOS%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96/index.html">
 <meta property="og:site_name" content="My Blogs">
-<meta property="og:description" content="前提本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。 正文1.NSData数据转NSString数据1NSString *String &#x3D; [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];  2.NSString数据转NSData数据1NSData">
+<meta property="og:description" content="前提本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-01-22T04:23:50.000Z">
-<meta property="article:modified_time" content="2022-01-22T12:50:12.445Z">
+<meta property="article:modified_time" content="2022-01-23T09:50:02.195Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="数据转化">
@@ -177,6 +177,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。</p>
+<span id="more"></span>
+
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-NSData数据转NSString数据"><a href="#1-NSData数据转NSString数据" class="headerlink" title="1.NSData数据转NSString数据"></a>1.NSData数据转NSString数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-NSString数据转NSData数据"><a href="#2-NSString数据转NSData数据" class="headerlink" title="2.NSString数据转NSData数据"></a>2.NSString数据转NSData数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSData *data = [String dataUsingEncoding:NSUTF8StringEncoding];</span><br></pre></td></tr></table></figure>
@@ -437,10 +439,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
@@ -450,6 +448,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
             
             <div class="clearfix"></div>
