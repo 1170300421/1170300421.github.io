@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/gitSSH.png">
 <meta property="article:published_time" content="2022-01-23T08:47:09.000Z">
-<meta property="article:modified_time" content="2022-01-23T09:01:24.152Z">
+<meta property="article:modified_time" content="2022-01-24T09:54:55.849Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -180,7 +180,7 @@
         <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例</p>
 <span id="more"></span>
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="一-Git配置SSH公钥"><a href="#一-Git配置SSH公钥" class="headerlink" title="一.Git配置SSH公钥"></a>一.Git配置SSH公钥</h3><p>使用https连接github可能因为网络原因出现连接不上，并且可能需要经常输入密码，这里可尝试使用SSH来连接Github。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="一、Git配置SSH公钥"><a href="#一、Git配置SSH公钥" class="headerlink" title="一、Git配置SSH公钥"></a>一、Git配置SSH公钥</h3><p>使用https连接github可能因为网络原因出现连接不上，并且可能需要经常输入密码，这里可尝试使用SSH来连接Github。</p>
 <p>1.步骤一：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your@example.com&quot;</span><br></pre></td></tr></table></figure>
 
@@ -188,6 +188,22 @@
 <p><img src="/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/gitSSH.png"></p>
 <p>如上图操作：输入命令后可更改文件名及路径，一般默认即可，记住生成的文件路径。之后会让设置密码，不设置可直接回车，之后打开后缀为pub的文件，复制里面的全部内容并在github的设置中进行配置即可</p>
 <p><strong>注意：</strong>一定要复制文件里的全部内容，不然无法被Github识别到</p>
+<p>###二、Git常用指令</p>
+<p>初始化：git init</p>
+<p>配置信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config  user.name &quot;youname&quot;</span><br><span class="line">git config  user.email &quot;your@example&quot;</span><br></pre></td></tr></table></figure>
+
+<p>如需全局配置，使用git config –globa luser.name”username”，邮箱类似。</p>
+<p>连接远程仓库：git remote add origin 仓库地址连接</p>
+<p>添加文件：git add .</p>
+<p>提交仓库：git commit -m “自定义名字”</p>
+<p>创建分支：git branch 分支名字</p>
+<p>切换分支：git checkout 分支名字</p>
+<p>推送远程仓库：git push origin 分支名字</p>
+<p>拉取远程仓库合并：git pull origin 分支名字</p>
+<p>合并分支：git merge 分支名字</p>
+<p>删除分支：git branch -d 分支名字</p>
+<p>版本回退：git reset –hard 版本号(可利用git log命令查看</p>
 
       
 
