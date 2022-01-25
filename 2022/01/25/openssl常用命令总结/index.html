@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>iOS常用数据转化 | My Blogs</title>
+  <title>openssl常用命令总结 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前提本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。">
+  <meta name="description" content="前提本次是对平时使用较多的一些openssl命令进行总结，方便后续进行查找">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS常用数据转化">
-<meta property="og:url" content="http://example.com/2022/01/22/iOS%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96/index.html">
+<meta property="og:title" content="openssl常用命令总结">
+<meta property="og:url" content="http://example.com/2022/01/25/openssl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="My Blogs">
-<meta property="og:description" content="前提本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。">
+<meta property="og:description" content="前提本次是对平时使用较多的一些openssl命令进行总结，方便后续进行查找">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-01-22T04:23:50.000Z">
-<meta property="article:modified_time" content="2022-01-23T09:50:02.195Z">
+<meta property="article:published_time" content="2022-01-25T06:09:02.000Z">
+<meta property="article:modified_time" content="2022-01-25T06:34:56.497Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="iOS">
-<meta property="article:tag" content="数据转化">
+<meta property="article:tag" content="openssl">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
@@ -156,44 +155,43 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-iOS常用数据转化" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-openssl常用命令总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      iOS常用数据转化
+      openssl常用命令总结
     </h1>
   
 
         
-        <a href="/2022/01/22/iOS%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2022-01-22T04:23:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-22</time>
+        <a href="/2022/01/25/openssl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2022-01-25T06:09:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次主要是对自己在平时开发过程经常遇到的一些Objective-c数据格式的转化进行总结，方便后续可以直接使用。</p>
+        <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次是对平时使用较多的一些openssl命令进行总结，方便后续进行查找</p>
 <span id="more"></span>
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-NSData数据转NSString数据"><a href="#1-NSData数据转NSString数据" class="headerlink" title="1.NSData数据转NSString数据"></a>1.NSData数据转NSString数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];</span><br></pre></td></tr></table></figure>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-生成证书请求文件"><a href="#1-生成证书请求文件" class="headerlink" title="1.生成证书请求文件"></a>1.生成证书请求文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl ecparam -genkey -name prime256v1 -out server.key</span><br><span class="line">openssl req -subj &quot;/C=CN/ST= /L= /O= /OU= /CN= /emailAddress=  -new -key server.key -out server.csr -sha256</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-NSString数据转NSData数据"><a href="#2-NSString数据转NSData数据" class="headerlink" title="2.NSString数据转NSData数据"></a>2.NSString数据转NSData数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSData *data = [String dataUsingEncoding:NSUTF8StringEncoding];</span><br></pre></td></tr></table></figure>
+<p>根据实际填入对应名字</p>
+<h3 id="2-验证证书签名"><a href="#2-验证证书签名" class="headerlink" title="2.验证证书签名"></a>2.验证证书签名</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl verify -CAfile 根证书 测试证书</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-NSData数据转Base64数据"><a href="#3-NSData数据转Base64数据" class="headerlink" title="3.NSData数据转Base64数据"></a>3.NSData数据转Base64数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *base64 = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];</span><br></pre></td></tr></table></figure>
+<h3 id="3-解析证书文件"><a href="#3-解析证书文件" class="headerlink" title="3.解析证书文件"></a>3.解析证书文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -in 测试证书 -noout -text</span><br><span class="line">openssl x509 -in certificate.der -inform der -text -noout //解析der格式证书</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-NSData数据转十六进制字符串"><a href="#4-NSData数据转十六进制字符串" class="headerlink" title="4.NSData数据转十六进制字符串"></a>4.NSData数据转十六进制字符串</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (NSData *)HexStrToData:(NSString *)str</span><br><span class="line">&#123;</span><br><span class="line">    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:20];</span><br><span class="line">    NSRange range;</span><br><span class="line">    if ([str length] % 2 == 0) &#123;</span><br><span class="line">        range = NSMakeRange(0, 2);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        range = NSMakeRange(0, 1);</span><br><span class="line">    &#125;</span><br><span class="line">    for (NSInteger i = range.location; i &lt; [str length]; i += 2) &#123;</span><br><span class="line">        unsigned int anInt;</span><br><span class="line">        NSString *hexCharStr = [str substringWithRange:range];</span><br><span class="line">        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];</span><br><span class="line">        </span><br><span class="line">        [scanner scanHexInt:&amp;anInt];</span><br><span class="line">        NSData *entity = [[NSData alloc] initWithBytes:&amp;anInt length:1];</span><br><span class="line">        [hexData appendData:entity];</span><br><span class="line">        </span><br><span class="line">        range.location += range.length;</span><br><span class="line">        range.length = 2;</span><br><span class="line">    &#125;</span><br><span class="line">    return hexData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-pkcs证书格式转化"><a href="#4-pkcs证书格式转化" class="headerlink" title="4.pkcs证书格式转化"></a>4.pkcs证书格式转化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs8 -topk8 -inform PEM -in private_pkcs1.pem -outform pem -nocrypt -out private_pkcs8.pem //pkcs1转pkcs8</span><br><span class="line">openssl pkcs12 -export -out ssl2_me.pfx -inkey ssl2_me.key -in ssl2_me.crt //PKCS12转cer</span><br></pre></td></tr></table></figure>
 
-<h3 id="5-十六进制字符串转NSData数据"><a href="#5-十六进制字符串转NSData数据" class="headerlink" title="5.十六进制字符串转NSData数据"></a>5.十六进制字符串转NSData数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (NSString *)DataToHexStr:(NSData *)data</span><br><span class="line">&#123;</span><br><span class="line">    if (![data isKindOfClass:[NSData class]] || data.length == 0) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSMutableString *hexStr = [NSMutableString string];</span><br><span class="line">    const char *buf = data.bytes;</span><br><span class="line">    for (int i = 0; i &lt; data.length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        [hexStr appendFormat:@&quot;%02X&quot;, buf[i] &amp; 0xff];</span><br><span class="line">    &#125;</span><br><span class="line">    return hexStr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-生成公私钥"><a href="#5-生成公私钥" class="headerlink" title="5.生成公私钥"></a>5.生成公私钥</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//生成私钥</span><br><span class="line">openssl ecparam -name secp256k1 -genkey -noout -out ecprikey.pem //ECC</span><br><span class="line">openssl genrsa -out rsa_private.key 2048 //RSA</span><br><span class="line"></span><br><span class="line">//生成 Pem 公钥</span><br><span class="line">openssl ec -in ecprikey.pem -pubout -out ecpubkey.pem //ECC</span><br><span class="line">openssl rsa -in rsa_private.key -pubout -out rsa_public.key //rsa</span><br><span class="line"></span><br><span class="line">//生成 二进制形式 公钥</span><br><span class="line">openssl ec -outform der -in ecprikey.pem -pubout -out ecpubkey.der</span><br></pre></td></tr></table></figure>
 
-<h3 id="6-普通NSData、NSString与base64data互转"><a href="#6-普通NSData、NSString与base64data互转" class="headerlink" title="6.普通NSData、NSString与base64data互转"></a>6.普通NSData、NSString与base64data互转</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NSData *base64data = [data base64EncodedDataWithOptions:NSDataBase64EncodingEndLineWithLineFeed];//普通data-&gt; base64data</span><br><span class="line"></span><br><span class="line">NSData *b64CertData= [[NSData alloc] initWithBase64EncodedString:pemStr options:NSDataBase64DecodingIgnoreUnknownCharacters];//NSString-&gt;base64Data</span><br><span class="line"></span><br><span class="line">NSData *data = [[NSData alloc] initWithBase64EncodedData:base64data options:NSDataBase64DecodingIgnoreUnknownCharacters]; //base64data-&gt;普通data</span><br></pre></td></tr></table></figure>
+<h3 id="6-提取证书公钥"><a href="#6-提取证书公钥" class="headerlink" title="6.提取证书公钥"></a>6.提取证书公钥</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -in XX.cer -pubkey  -noout &gt; XX.pem</span><br></pre></td></tr></table></figure>
 
-<h3 id="7-NSString与UInt8数据互相转化及UInt8数据转NSData"><a href="#7-NSString与UInt8数据互相转化及UInt8数据转NSData" class="headerlink" title="7.NSString与UInt8数据互相转化及UInt8数据转NSData"></a>7.NSString与UInt8数据互相转化及UInt8数据转NSData</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//NSString 转 UInt8</span><br><span class="line">NSString *str = @&quot;测试转换&quot;;</span><br><span class="line">UInt8 buff_str[1024];</span><br><span class="line">memcpy(buff_str,[str UTF8String], [str length]+1);</span><br><span class="line">NSLog(@&quot;char = %s&quot;,buff_str);</span><br><span class="line"></span><br><span class="line">//UInt8 转 NSString</span><br><span class="line">NSString *str_From_buff = [NSString stringWithCString:(char*)buff_str encoding:NSUTF8StringEncoding];</span><br><span class="line">NSLog(@&quot;string = %@&quot;,str_From_buff);</span><br><span class="line"></span><br><span class="line">//UInt8 转 NSData</span><br><span class="line">tmp_str=[NSData dataWithBytes:shares[0] length:sizeof(shares[0])];</span><br><span class="line"></span><br><span class="line">注：因为dataWithBytesNoCopy:想保留你给它的指针。事实上，你必须给它一个你创建的指针malloc，因为它会在完成数据后释放它。因此使用此可能出现pointer being freed was not allocated的内存错误 所以使用dataWithBytes来进行数据转化</span><br></pre></td></tr></table></figure>
-
-<h3 id="8-SeckeyRef数据与NSData数据转化"><a href="#8-SeckeyRef数据与NSData数据转化" class="headerlink" title="8.SeckeyRef数据与NSData数据转化"></a>8.SeckeyRef数据与NSData数据转化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SeckeyRef seckeyrefData = (__bridge CFDataRef)data //SeckeyRef -&gt; NSData</span><br><span class="line"></span><br><span class="line">NSData *data = (__bridge NSData*)seckeyrefData //NSData -&gt; SeckeyRef</span><br></pre></td></tr></table></figure>
+<h3 id="7-签名验签"><a href="#7-签名验签" class="headerlink" title="7.签名验签"></a>7.签名验签</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl dgst -sha256 -verify 公钥文件 -signature 签名数据(字节形式)文件 签名数据文件  //验签</span><br><span class="line">openssl dgst -sign 私钥文件 -sha256 -out 签名数据(字节形式)文件 签名数据文件 //签名</span><br></pre></td></tr></table></figure>
 
       
 
@@ -228,11 +226,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据转化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">openssl</a>
         		</li>
       		
 		</ul>
@@ -288,7 +282,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/22/iOS%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/25/openssl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -302,18 +296,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Git常用配置及命令总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/01/02/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Git常用配置及命令总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
