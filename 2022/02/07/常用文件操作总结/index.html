@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Git常用配置及命令总结 | My Blogs</title>
+  <title>常用文件操作总结 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前提本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例">
+  <meta name="description" content="前提本次是对一些常用编程语言用到的文件操作进行总结，后续会不断更新完善">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git常用配置及命令总结">
-<meta property="og:url" content="http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="常用文件操作总结">
+<meta property="og:url" content="http://example.com/2022/02/07/%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="My Blogs">
-<meta property="og:description" content="前提本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例">
+<meta property="og:description" content="前提本次是对一些常用编程语言用到的文件操作进行总结，后续会不断更新完善">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/gitSSH.png">
-<meta property="article:published_time" content="2022-01-23T08:47:09.000Z">
-<meta property="article:modified_time" content="2022-01-24T09:54:55.849Z">
+<meta property="article:published_time" content="2022-02-07T07:20:07.000Z">
+<meta property="article:modified_time" content="2022-02-07T07:42:02.769Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="文件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/gitSSH.png">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
   
@@ -157,53 +155,35 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Git常用配置及命令总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-常用文件操作总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Git常用配置及命令总结
+      常用文件操作总结
     </h1>
   
 
         
-        <a href="/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-01-23T08:47:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-23</time>
+        <a href="/2022/02/07/%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2022-02-07T07:20:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次是对平时经常使用的一些git指令进行总结，方便后续遗忘时进行查阅。本次以mac环境为例</p>
+        <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次是对一些常用编程语言用到的文件操作进行总结，后续会不断更新完善</p>
 <span id="more"></span>
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="一、Git配置SSH公钥"><a href="#一、Git配置SSH公钥" class="headerlink" title="一、Git配置SSH公钥"></a>一、Git配置SSH公钥</h3><p>使用https连接github可能因为网络原因出现连接不上，并且可能需要经常输入密码，这里可尝试使用SSH来连接Github。</p>
-<p>1.步骤一：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your@example.com&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-文件读取"><a href="#1-文件读取" class="headerlink" title="1.文件读取"></a>1.文件读取</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//objective-c</span><br><span class="line">NSData *readData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:nil];//以NSData字节读取</span><br><span class="line"></span><br><span class="line">NSString *readString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&amp;error];//以NSString字符串形式读取</span><br></pre></td></tr></table></figure>
 
-<p>2.步骤二</p>
-<p><img src="/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/gitSSH.png"></p>
-<p>如上图操作：输入命令后可更改文件名及路径，一般默认即可，记住生成的文件路径。之后会让设置密码，不设置可直接回车，之后打开后缀为pub的文件，复制里面的全部内容并在github的设置中进行配置即可</p>
-<p><strong>注意：</strong>一定要复制文件里的全部内容，不然无法被Github识别到</p>
-<p>###二、Git常用指令</p>
-<p>初始化：git init</p>
-<p>配置信息：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config  user.name &quot;youname&quot;</span><br><span class="line">git config  user.email &quot;your@example&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="2-文件写入"><a href="#2-文件写入" class="headerlink" title="2.文件写入"></a>2.文件写入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//objective-c</span><br><span class="line">BOOL retstatus = [Str writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&amp;err];//写入字符串Str</span><br></pre></td></tr></table></figure>
 
-<p>如需全局配置，使用git config –globa luser.name”username”，邮箱类似。</p>
-<p>连接远程仓库：git remote add origin 仓库地址连接</p>
-<p>添加文件：git add .</p>
-<p>提交仓库：git commit -m “自定义名字”</p>
-<p>创建分支：git branch 分支名字</p>
-<p>切换分支：git checkout 分支名字</p>
-<p>推送远程仓库：git push origin 分支名字</p>
-<p>拉取远程仓库合并：git pull origin 分支名字</p>
-<p>合并分支：git merge 分支名字</p>
-<p>删除分支：git branch -d 分支名字</p>
-<p>版本回退：git reset –hard 版本号(可利用git log命令查看</p>
+<h3 id="3-文件删除"><a href="#3-文件删除" class="headerlink" title="3.文件删除"></a>3.文件删除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//objective-c</span><br><span class="line">NSFileManager *fileManager = [NSFileManager defaultManager];//文件管理器</span><br><span class="line">BOOL retstatus = [fileManager removeItemAtPath:filePath error:nil];//删除文件</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -238,7 +218,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
         		</li>
       		
 		</ul>
@@ -294,7 +274,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/23/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/02/07/%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,18 +288,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/01/25/openssl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          openssl常用命令总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/01/22/iOS%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">iOS常用数据转化</div>
+    <a href="/2022/01/25/openssl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">openssl常用命令总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
