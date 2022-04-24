@@ -16,7 +16,7 @@
 <meta property="og:description" content="前提本次是对平时使用较多的一些openssl命令进行总结，方便后续进行查找">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-20T06:09:02.000Z">
-<meta property="article:modified_time" content="2022-04-24T02:08:43.382Z">
+<meta property="article:modified_time" content="2022-04-24T03:31:25.310Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="openssl">
 <meta name="twitter:card" content="summary">
@@ -178,10 +178,10 @@
         <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次是对平时使用较多的一些openssl命令进行总结，方便后续进行查找</p>
 <span id="more"></span>
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-生成证书请求文件"><a href="#1-生成证书请求文件" class="headerlink" title="1.生成证书请求文件"></a>1.生成证书请求文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl ecparam -genkey -name prime256v1 -out server.key</span><br><span class="line">openssl req -subj &quot;/C=CN/ST= /L= /O= /OU= /CN= /emailAddress=  -new -key server.key -out server.csr -sha256</span><br></pre></td></tr></table></figure>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-生成证书请求文件"><a href="#1-生成证书请求文件" class="headerlink" title="1.生成证书请求文件"></a>1.生成证书请求文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl ecparam -genkey -name prime256v1 -out server.key </span><br><span class="line">openssl req -subj &quot;/C=CN/ST= /L= /O= /OU= /CN= /emailAddress=  -new -key server.key -out server.csr -sha256</span><br></pre></td></tr></table></figure>
 
 <p>根据实际填入对应名字</p>
-<h3 id="2-验证证书签名"><a href="#2-验证证书签名" class="headerlink" title="2.验证证书签名"></a>2.验证证书签名</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl verify -CAfile 根证书 测试证书</span><br></pre></td></tr></table></figure>
+<h3 id="2-验证证书签名"><a href="#2-验证证书签名" class="headerlink" title="2.验证证书签名"></a>2.验证证书签名</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">openssl verify -CAfile 根证书 测试证书</span><br><span class="line"></span><br><span class="line">//证书链验证</span><br><span class="line">openssl verify -CAfile 根证书 -untrusted 中间证书 终端证书</span><br><span class="line"></span><br><span class="line">openssl verify -partial_chain -trusted 中间证书 终端证书</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-解析证书文件"><a href="#3-解析证书文件" class="headerlink" title="3.解析证书文件"></a>3.解析证书文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -in 测试证书 -noout -text</span><br><span class="line">openssl x509 -in certificate.der -inform der -text -noout //解析der格式证书</span><br></pre></td></tr></table></figure>
 
@@ -192,6 +192,9 @@
 <h3 id="6-提取证书公钥"><a href="#6-提取证书公钥" class="headerlink" title="6.提取证书公钥"></a>6.提取证书公钥</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -in XX.cer -pubkey  -noout &gt; XX.pem</span><br></pre></td></tr></table></figure>
 
 <h3 id="7-签名验签"><a href="#7-签名验签" class="headerlink" title="7.签名验签"></a>7.签名验签</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl dgst -sha256 -verify 公钥文件 -signature 签名数据(字节形式)文件 签名数据文件  //验签</span><br><span class="line">openssl dgst -sign 私钥文件 -sha256 -out 签名数据(字节形式)文件 签名数据文件 //签名</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-自签证书"><a href="#8-自签证书" class="headerlink" title="8.自签证书"></a>8.自签证书</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//生成证书</span><br><span class="line">openssl req  -new -key ca_private.key -out ca.csr -subj &quot;/C=CN/ST=ST/L=CITY/O=o/OU=ou/CN=cn&quot;</span><br><span class="line">//自签根证书</span><br><span class="line">openssl req -x509 -days 666 -key ca_private.key -in ca.csr -out CARoot.crt</span><br><span class="line">//签发证书请求文件</span><br><span class="line">openssl x509 -req -days 3650  -in server.csr -CA CA.crt -CAkey ca_private.key -CAcreateserial -out server2.crt</span><br><span class="line"></span><br><span class="line">openssl ca -days 365 -extensions v3_intermediate_ca -in server.csr -keyfile TCL-PAA-Key.pem -cert TCL-PAA-Cert.pem -out server.crt -config powerca.cnf</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -450,6 +453,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">knife4j</a>
               </li>
             
             <div class="clearfix"></div>
