@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022/4 | My Blogs</title>
+  <title>iOS ECC密钥读取 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="My Blogs">
-<meta property="og:url" content="http://example.com/archives/2022/04/index.html">
+  <meta name="description" content="前提 本次是对在iOS开发中遇到的ECC密钥读取问题的总结。现阶段iOS原生安全库对ECC的支持还不完善，不像对RSA一样可直接解析pem格式证书，ECC须按照接口要求拼接公私钥。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS ECC密钥读取">
+<meta property="og:url" content="http://example.com/2022/06/08/iOS-ECC%E5%AF%86%E9%92%A5%E8%AF%BB%E5%8F%96/index.html">
 <meta property="og:site_name" content="My Blogs">
+<meta property="og:description" content="前提 本次是对在iOS开发中遇到的ECC密钥读取问题的总结。现阶段iOS原生安全库对ECC的支持还不完善，不像对RSA一样可直接解析pem格式证书，ECC须按照接口要求拼接公私钥。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-08T06:19:16.000Z">
+<meta property="article:modified_time" content="2022-06-08T06:38:34.017Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="ECC">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
@@ -150,102 +155,186 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-iOS-ECC密钥读取" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/23/Java%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3knife4j%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-04-23T03:33:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/23/Java%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3knife4j%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/">Java接口文档knife4j框架使用</a>
+    <h1 class="article-title" itemprop="name">
+      iOS ECC密钥读取
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/06/08/iOS-ECC%E5%AF%86%E9%92%A5%E8%AF%BB%E5%8F%96/" class="archive-article-date">
+  	<time datetime="2022-06-08T06:19:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2></blockquote>
+<p>本次是对在iOS开发中遇到的ECC密钥读取问题的总结。现阶段iOS原生安全库对ECC的支持还不完善，不像对RSA一样可直接解析pem格式证书，ECC须按照接口要求拼接公私钥。</p>
+<span id="more"></span>
+
+<blockquote>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2></blockquote>
+<h3 id="一、原因解析"><a href="#一、原因解析" class="headerlink" title="一、原因解析"></a>一、原因解析</h3><h4 id="1、iOS接口解析"><a href="#1、iOS接口解析" class="headerlink" title="1、iOS接口解析"></a>1、iOS接口解析</h4><p>根据查看iOS开发手册 (<a target="_blank" rel="noopener" href="https://opensource.apple.com/source/Security/Security-57740.51.3/keychain/SecKey.h">https://opensource.apple.com/source/Security/Security-57740.51.3/keychain/SecKey.h</a>) 得知iOS原生加密组件读取ECC私钥需要密钥格式为<strong>ANSI X9.63 格式（04 || X || Y [ || K]）</strong>， 其中<strong>04 || X || Y</strong>表示ECC公钥，<strong>K</strong> 表示ECC私钥。</p>
+<p>因此我们得知我们需要将pem格式的ECC私钥解析出公钥和私钥，然后进行拼接后在调用iOS的<strong>SecKeyCreateWithData</strong>接口读取到密钥。</p>
+<h4 id="2、pem文件ASN-1格式解析"><a href="#2、pem文件ASN-1格式解析" class="headerlink" title="2、pem文件ASN.1格式解析"></a>2、pem文件ASN.1格式解析</h4><p>根据上面我们得知，iOS原生接口需要解析pem文件后得出的公钥与私钥。因此我们以一个pem格式私钥为例，通过使用工具解析ASN.1编码，得到如下信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;SEQUENCE&gt;</span><br><span class="line"> &lt;INTEGER/&gt;</span><br><span class="line"> &lt;SEQUENCE&gt;</span><br><span class="line">  &lt;OBJECT_IDENTIFIER Comment=&quot;ANSI X9.62 public key type&quot; Description=&quot;ecPublicKey&quot;&gt;1.2.840.10045.2.1&lt;/OBJECT_IDENTIFIER&gt;</span><br><span class="line">  &lt;OBJECT_IDENTIFIER Comment=&quot;ANSI X9.62 named elliptic curve&quot; Description=&quot;prime256v1&quot;&gt;1.2.840.10045.3.1.7&lt;/OBJECT_IDENTIFIER&gt;</span><br><span class="line"> &lt;/SEQUENCE&gt;</span><br><span class="line"> &lt;OCTET_STRING&gt;</span><br><span class="line">  &lt;SEQUENCE&gt;</span><br><span class="line">   &lt;INTEGER&gt;1&lt;/INTEGER&gt;</span><br><span class="line">   &lt;OCTET_STRING&gt;0xA36C16F46EB50EF5F3C0F4707D1BBAFF23EE012B6AB637A601D396049BE6711E&lt;/OCTET_STRING&gt;</span><br><span class="line">   &lt;NODE Sign=&quot;a1&quot;&gt;</span><br><span class="line">    &lt;BIT_STRING&gt;0x0004D4115D7C966E43B0328C02A63CD32FA10E9951E2D5266A28F65BE2033EEE879469EC16690B64B39511148989F71FED9903ECEFB781855FFB7BC8988B0296782C&lt;/BIT_STRING&gt;</span><br><span class="line">   &lt;/NODE&gt;</span><br><span class="line">  &lt;/SEQUENCE&gt;</span><br><span class="line"> &lt;/OCTET_STRING&gt;</span><br><span class="line">&lt;/SEQUENCE&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其中BIT_STRING代表的为公钥，OCTET_STRING代表私钥，因此我们可以将ASN.1编码解析的公钥私钥进行拼接后即可满足接口需求。</p>
+<h3 id="二、解决方案"><a href="#二、解决方案" class="headerlink" title="二、解决方案"></a>二、解决方案</h3><p>在经过上述分析后，我们得知问题的解决思路为利用ASN.1编码规则解析pem格式私钥，将十六进制BIT_STRING标签的公钥和OCTET_STRING标签的私钥进行拼接后在按要求转化为iOS的CFDataRef类型变量即可进行后续操作。</p>
+<p>以开源代码（<a target="_blank" rel="noopener" href="https://github.com/lishuzhi1121/ZZASNOne%EF%BC%89%E4%B8%BA%E4%BE%8B%EF%BC%8C%E6%88%91%E4%BB%AC%E9%80%9A%E8%BF%87%E4%BD%BF%E7%94%A8%E5%BC%80%E6%BA%90%E4%BB%A3%E7%A0%81%EF%BC%8C%E6%8B%BC%E6%8E%A5%E5%87%BA%E6%88%91%E4%BB%AC%E6%89%80%E9%9C%80%E5%AF%86%E9%92%A5%E5%8D%B3%E5%8F%AF">https://github.com/lishuzhi1121/ZZASNOne）为例，我们通过使用开源代码，拼接出我们所需密钥即可</a></p>
+<h3 id="参考材料"><a href="#参考材料" class="headerlink" title="参考材料"></a>参考材料</h3><p>1、<a target="_blank" rel="noopener" href="https://blog.csdn.net/guodeqiangde/article/details/79499906"> ASN.1解读—标准编码规则BER</a></p>
+<p>2、<a target="_blank" rel="noopener" href="https://opensource.apple.com/source/Security/Security-57740.51.3/keychain/SecKey.h">iOS SecKey头文件</a></p>
+<p>3、<a target="_blank" rel="noopener" href="https://developer.apple.com/forums/thread/72445?answerId=211163022#211163022&teamwork_src=1&gcmt=ut_Dz3LBiz0IBviAaSXImFYYlGoBZjNe5xI6V5&accessToken=ut_Dz3LBiz0IBviAaSXImFYYlGoBZjNe5xI6V5&lang=zh_CN">如何导入ec pem编码的公钥/私钥</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">knife4j</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ECC</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/06/08/iOS-ECC%E5%AF%86%E9%92%A5%E8%AF%BB%E5%8F%96/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/09/%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:20:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/23/Java%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3knife4j%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java接口文档knife4j框架使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/09/%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/">常用文件操作总结</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -268,8 +357,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
