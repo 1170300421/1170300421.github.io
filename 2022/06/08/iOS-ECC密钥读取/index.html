@@ -16,7 +16,7 @@
 <meta property="og:description" content="前提 本次是对在iOS开发中遇到的ECC密钥读取问题的总结。现阶段iOS原生安全库对ECC的支持还不完善，不像对RSA一样可直接解析pem格式证书，ECC须按照接口要求拼接公私钥。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-08T06:19:16.000Z">
-<meta property="article:modified_time" content="2022-06-08T06:38:34.017Z">
+<meta property="article:modified_time" content="2022-06-08T06:54:19.312Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="ECC">
 <meta name="twitter:card" content="summary">
@@ -191,7 +191,7 @@
 
 <p>其中BIT_STRING代表的为公钥，OCTET_STRING代表私钥，因此我们可以将ASN.1编码解析的公钥私钥进行拼接后即可满足接口需求。</p>
 <h3 id="二、解决方案"><a href="#二、解决方案" class="headerlink" title="二、解决方案"></a>二、解决方案</h3><p>在经过上述分析后，我们得知问题的解决思路为利用ASN.1编码规则解析pem格式私钥，将十六进制BIT_STRING标签的公钥和OCTET_STRING标签的私钥进行拼接后在按要求转化为iOS的CFDataRef类型变量即可进行后续操作。</p>
-<p>以开源代码（<a target="_blank" rel="noopener" href="https://github.com/lishuzhi1121/ZZASNOne%EF%BC%89%E4%B8%BA%E4%BE%8B%EF%BC%8C%E6%88%91%E4%BB%AC%E9%80%9A%E8%BF%87%E4%BD%BF%E7%94%A8%E5%BC%80%E6%BA%90%E4%BB%A3%E7%A0%81%EF%BC%8C%E6%8B%BC%E6%8E%A5%E5%87%BA%E6%88%91%E4%BB%AC%E6%89%80%E9%9C%80%E5%AF%86%E9%92%A5%E5%8D%B3%E5%8F%AF">https://github.com/lishuzhi1121/ZZASNOne）为例，我们通过使用开源代码，拼接出我们所需密钥即可</a></p>
+<p>以开源代码(<a target="_blank" rel="noopener" href="https://github.com/lishuzhi1121/ZZASNOne">https://github.com/lishuzhi1121/ZZASNOne</a>) 为例，我们通过使用开源代码，拼接出我们所需密钥即可</p>
 <h3 id="参考材料"><a href="#参考材料" class="headerlink" title="参考材料"></a>参考材料</h3><p>1、<a target="_blank" rel="noopener" href="https://blog.csdn.net/guodeqiangde/article/details/79499906"> ASN.1解读—标准编码规则BER</a></p>
 <p>2、<a target="_blank" rel="noopener" href="https://opensource.apple.com/source/Security/Security-57740.51.3/keychain/SecKey.h">iOS SecKey头文件</a></p>
 <p>3、<a target="_blank" rel="noopener" href="https://developer.apple.com/forums/thread/72445?answerId=211163022#211163022&teamwork_src=1&gcmt=ut_Dz3LBiz0IBviAaSXImFYYlGoBZjNe5xI6V5&accessToken=ut_Dz3LBiz0IBviAaSXImFYYlGoBZjNe5xI6V5&lang=zh_CN">如何导入ec pem编码的公钥/私钥</a></p>
