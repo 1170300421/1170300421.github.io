@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>常用文件操作总结 | My Blogs</title>
+  <title>java注解详解-@Scheduled | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前提本次是对一些常用编程语言用到的文件操作进行总结，后续会不断更新完善">
+  <meta name="description" content="前提 本次是对java Spring中Scheduled注解的介绍。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常用文件操作总结">
-<meta property="og:url" content="http://example.com/2022/04/09/%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="java注解详解-@Scheduled">
+<meta property="og:url" content="http://example.com/2022/06/24/java%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3-Scheduled/index.html">
 <meta property="og:site_name" content="My Blogs">
-<meta property="og:description" content="前提本次是对一些常用编程语言用到的文件操作进行总结，后续会不断更新完善">
+<meta property="og:description" content="前提 本次是对java Spring中Scheduled注解的介绍。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-04-09T07:20:07.000Z">
-<meta property="article:modified_time" content="2022-04-24T02:08:36.376Z">
+<meta property="article:published_time" content="2022-06-24T08:40:07.000Z">
+<meta property="article:modified_time" content="2022-06-24T08:46:45.735Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="文件">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
@@ -155,35 +156,128 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-常用文件操作总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java注解详解-Scheduled" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      常用文件操作总结
+      java注解详解-@Scheduled
     </h1>
   
 
         
-        <a href="/2022/04/09/%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-04-09T07:20:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-09</time>
+        <a href="/2022/06/24/java%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3-Scheduled/" class="archive-article-date">
+  	<time datetime="2022-06-24T08:40:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>本次是对一些常用编程语言用到的文件操作进行总结，后续会不断更新完善</p>
+        <blockquote>
+<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2></blockquote>
+<p>本次是对java Spring中Scheduled注解的介绍。</p>
 <span id="more"></span>
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-文件读取"><a href="#1-文件读取" class="headerlink" title="1.文件读取"></a>1.文件读取</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//objective-c</span><br><span class="line">NSData *readData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:nil];//以NSData字节读取</span><br><span class="line"></span><br><span class="line">NSString *readString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&amp;error];//以NSString字符串形式读取</span><br></pre></td></tr></table></figure>
+<h2 id="1-注解源码"><a href="#1-注解源码" class="headerlink" title="1.注解源码"></a>1.注解<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%BA%90%E7%A0%81&spm=1001.2101.3001.7020">源码</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.METHOD, ElementType.ANNOTATION_TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Repeatable(Schedules.class)</span><br><span class="line">public @interface Scheduled &#123;</span><br><span class="line"></span><br><span class="line">	String cron() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">	String zone() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">	long fixedDelay() default -1;</span><br><span class="line"></span><br><span class="line">	String fixedDelayString() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">	long fixedRate() default -1;</span><br><span class="line"></span><br><span class="line">	String fixedRateString() default &quot;&quot;;</span><br><span class="line">	</span><br><span class="line">	long initialDelay() default -1;</span><br><span class="line"></span><br><span class="line">	String initialDelayString() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-文件写入"><a href="#2-文件写入" class="headerlink" title="2.文件写入"></a>2.文件写入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//objective-c</span><br><span class="line">BOOL retstatus = [Str writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&amp;err];//写入字符串Str</span><br></pre></td></tr></table></figure>
+<h2 id="2-注解参数"><a href="#2-注解参数" class="headerlink" title="2.注解参数"></a>2.注解参数</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cron</td>
+<td>任务执行的cron表达式</td>
+<td>0/2 * * * * ?</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>cron表达时解析使用的时区，默认为服务器的本地时区。<br>使用java.util.TimeZone#getTimeZone(String)方法解析</td>
+<td>GMT-8:00</td>
+</tr>
+<tr>
+<td>fixedRate</td>
+<td>固定速率<br><code>上一次任务执行开始到下一次执行开始的间隔时间固定</code>，单位为ms。<br><code>若在调度任务执行时,上一次任务还未执行完毕,会加入worker队列,等待上一次执行完成后，马上执行下一次任务</code></td>
+<td>1000</td>
+</tr>
+<tr>
+<td>fixedRateString</td>
+<td>与fixedRate一致，只是间隔时间使用java.time.Duration#parse解析</td>
+<td>1000或PT1S</td>
+</tr>
+<tr>
+<td>fixedDelay</td>
+<td>固定延迟<br><code>上一次任务执行结束到下一次执行开始的间隔时间固定</code>，单位为ms。</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>fixedDelayString</td>
+<td>与fixedDelay一致，只是间隔时间使用java.time.Duration#parse解析</td>
+<td>1000或PT1S</td>
+</tr>
+<tr>
+<td>initialDelay</td>
+<td>首次延迟多长时间后执行，单位ms。<br>之后按照fixedRate、fixedRateString、fixedDelay、fixedDelayString指定的规则执行，需要指定其中一个规则。<br>注意：不能和cron一起使用</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>initialDelayString</td>
+<td>与initialDelay 一致，只是间隔时间使用java.time.Duration#parse解析</td>
+<td>1000或PT1S</td>
+</tr>
+</tbody></table>
+<h2 id="3-示例"><a href="#3-示例" class="headerlink" title="3.示例"></a>3.示例</h2><h3 id="cron"><a href="#cron" class="headerlink" title="cron"></a>cron</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(cron = &quot;0/2 * * * * ?&quot;)</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-文件删除"><a href="#3-文件删除" class="headerlink" title="3.文件删除"></a>3.文件删除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//objective-c</span><br><span class="line">NSFileManager *fileManager = [NSFileManager defaultManager];//文件管理器</span><br><span class="line">BOOL retstatus = [fileManager removeItemAtPath:filePath error:nil];//删除文件</span><br></pre></td></tr></table></figure>
+<p>从0秒开始，每隔两秒执行一次。</p>
+<h3 id="zone"><a href="#zone" class="headerlink" title="zone"></a>zone</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(cron = &quot;0/2 * * * * ?&quot;, zone = &quot;GMT-8:00&quot;)</span><br></pre></td></tr></table></figure>
 
+<p>从0秒开始，每隔两秒执行一次。</p>
+<p>指定时间使用的时区为东八区。</p>
+<h3 id="fixedRate"><a href="#fixedRate" class="headerlink" title="fixedRate"></a>fixedRate</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(fixedRate = 1000)</span><br></pre></td></tr></table></figure>
+
+<p>1秒执行一次，上次执行开始后过1秒执行下一次。若到了1秒后但上次执行还未完成，会加入worker队列，等待上一次执行完成后，马上执行下一次。</p>
+<h3 id="fixedRateString"><a href="#fixedRateString" class="headerlink" title="fixedRateString"></a>fixedRateString</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(fixedDelayString = &quot;1000&quot;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(fixedDelayString = &quot;PT1S&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>都表示1秒执行一次，上次执行开始后过1秒执行下一次。若到了1秒后但上次执行还未完成，会加入worker队列，等待上一次执行完成后，马上执行下一次。</p>
+<h3 id="fixedDelay"><a href="#fixedDelay" class="headerlink" title="fixedDelay"></a>fixedDelay</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(fixedDelay = 1000)</span><br></pre></td></tr></table></figure>
+
+<p>1秒执行一次，上次执行完成后过1秒继续执行下一次。</p>
+<h3 id="fixedDelayString"><a href="#fixedDelayString" class="headerlink" title="fixedDelayString"></a>fixedDelayString</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(fixedDelayString = &quot;1000&quot;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(fixedDelayString = &quot;PT1S&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>都表示1秒执行一次，上次执行完成后过1秒继续执行下一次。</p>
+<h3 id="initialDelay"><a href="#initialDelay" class="headerlink" title="initialDelay"></a>initialDelay</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(initialDelay = 5000, fixedRate = 2000) </span><br></pre></td></tr></table></figure>
+
+<p>首次5秒后执行，后续每隔2秒执行一次（遵循fixedRate 规则）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(initialDelay = 5000, fixedDelay = 2000)` </span><br></pre></td></tr></table></figure>
+
+<p>首次5秒后执行，后续每隔2秒执行一次（遵循fixedDelay 规则）</p>
+<p><code>注意：initialDelay、initialDelayString都不能和cron一起使用</code></p>
+<h3 id="initialDelayString"><a href="#initialDelayString" class="headerlink" title="initialDelayString"></a>initialDelayString</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(initialDelayString = &quot;5000&quot;, fixedRate = 2000)</span><br></pre></td></tr></table></figure>
+
+<p>首次5秒后执行，后续每隔2秒执行一次（遵循fixedRate 规则）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(initialDelayString = &quot;5000&quot;, fixedDelay = 2000)</span><br></pre></td></tr></table></figure>
+
+<p>首次5秒后执行，后续每隔2秒执行一次（遵循fixedDelay 规则）</p>
+<p><code>注意：initialDelay、initialDelayString都不能和cron一起使用</code></p>
+<h2 id="4-Scheduled-详细参数说明"><a href="#4-Scheduled-详细参数说明" class="headerlink" title="4.Scheduled 详细参数说明"></a>4.Scheduled 详细参数说明</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">     * @Scheduled 详细参数说明：</span><br><span class="line">     *</span><br><span class="line">     * 1.corn    指定：秒，分钟，小时，日期，月份，星期，年（可选）</span><br><span class="line">     * 2.fixedDelay   从上一个任务完成到下一个任务开始的间隔，单位是毫秒</span><br><span class="line">     * 3.fixedDelayString  同上,只是字符串类型.</span><br><span class="line">     * 4.fixedRate    从上一个任务开始到下一个任务开始的间隔，单位是毫秒</span><br><span class="line">     * 5.fixedRateString  同上,只是字符串类型.</span><br><span class="line">     * 6.initialDelay   任务第一次执行前需要延迟的毫秒数</span><br><span class="line">     * 7.initialDelayString   同上,只是字符串类型.</span><br><span class="line">     * 8.zone    指定时区</span><br><span class="line">     *</span><br><span class="line">     */</span><br></pre></td></tr></table></figure>
+<p>示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">##CRON表达式 含义</span><br><span class="line">#    &quot;0 0 12 * * ?&quot;      每天中午十二点触发</span><br><span class="line">#    &quot;0 15 10 ? * *&quot;    每天早上10：15触发</span><br><span class="line">#    &quot;0 15 10 * * ?&quot;    每天早上10：15触发</span><br><span class="line">#    &quot;0 15 10 * * ? *&quot;   每天早上10：15触发</span><br><span class="line">#    &quot;0 15 10 * * ? 2005&quot;    2005年的每天早上10：15触发</span><br><span class="line">#    “0 * 14 * * ?&quot;    每天从下午2点开始到2点59分每分钟一次触发</span><br><span class="line"> #   &quot;0 0/5 14 * * ?&quot;    每天从下午2点开始到2：55分结束每5分钟一次触发</span><br><span class="line"> #   &quot;0 0/5 14,18 * * ?&quot;     每天的下午2点至2：55和6点至6点55分两个时间段内每5分钟一次触发</span><br><span class="line"> ##   &quot;0 0-5 14 * * ?&quot;    每天14:00至14:05每分钟一次触发</span><br><span class="line"> #   &quot;0 10,44 14 ? 3 WED&quot;    三月的每周三的14：10和14：44触发</span><br><span class="line"> #   &quot;0 15 10 ? * MON-FRI&quot;   每个周一、周二、周三、周四、周五的10：15触发</span><br><span class="line">my:</span><br><span class="line">  cron: &#x27;0/5 * * * * ?&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Scheduled-定时任务不执行的原因"><a href="#5-Scheduled-定时任务不执行的原因" class="headerlink" title="5.Scheduled 定时任务不执行的原因"></a>5.Scheduled 定时任务不执行的原因</h2><p>一般为未能自动注入，可尝试如下方法：</p>
+<p>1.启动类上加 @EnableScheduling 注解</p>
+<p>2.定时任务类上加@<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Component&spm=1001.2101.3001.7020">Component</a></p>
+<p>3.定时方法上加@Scheduled</p>
+<p>参考链接：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Skyline_ding/article/details/123851376">https://blog.csdn.net/Skyline_ding/article/details/123851376</a></p>
 
       
 
@@ -218,7 +312,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
       		
 		</ul>
@@ -274,7 +372,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/09/%E5%B8%B8%E7%94%A8%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/06/24/java%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3-Scheduled/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,18 +386,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/04/23/Java%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3knife4j%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java接口文档knife4j框架使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/03/05/Git%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Git常用配置及命令总结</div>
+    <a href="/2022/06/24/java%E5%B8%B8%E7%94%A8%E4%B8%89%E7%A7%8D%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java常用三种日志框架配置</div>
       <i class="icon-circle-right"></i>
     </a>
   
